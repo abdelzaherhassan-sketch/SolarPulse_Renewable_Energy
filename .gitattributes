@@ -1,1 +1,3 @@
-*.csv linguist-documentation
+*.csv linguist-vendored
+*.xlsx linguist-vendored
+*.pbix linguist-vendored
