@@ -1,0 +1,10 @@
+# Python Virtual Environment
+venv/
+.venv/
+ENV/
+env/
+
+# Data Analytics / OS junk files
+.DS_Store
+Thumbs.db
+*.log
