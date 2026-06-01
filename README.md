@@ -27,6 +27,12 @@ To reflect professional collaboration and official DEPI graduation registry, pro
 
 ---
 
+# ⚠️ تنويه هام للجنة التقييم الموقرة (DEPI Evaluation Committee)
+> **نظراً لفتح صلاحيات الرفع الرسمية بعد موعد التسليم على الـ LMS، تم رفع النسخة النهائية والمعتمدة للمشروع تحت الرابط الرسمي للمبادرة تبع الدعوة:**
+> 👉 [اضغط هنا للانتقال إلى المستودع الرسمي للمجموعة NHA-4-001](https://github.com/nhahub/NHA-4-001)
+
+---
+
 ## 📊 Business Metrics & Operational KPIs
 The system monitors and optimizes critical operational and investment metrics:
 * **Capacity Utilization Factor (CUF):** Evaluating the actual output compared to the maximum theoretical design capacity.
