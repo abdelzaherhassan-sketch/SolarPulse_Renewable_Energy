@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # SolarPulse: AI-Driven Solar Energy Forecasting & Advanced Analytics Dashboard
 
 An enterprise-grade, end-to-end data engineering and predictive modeling project developed for the National Graduation Project Showcase of the **Digital Egypt Pioneers Initiative (DEPI)** under the Ministry of Communications and Information Technology (MCIT), Egypt.
