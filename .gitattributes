@@ -1,3 +1,163 @@
-*.csv linguist-detectable=false
-*.xlsx linguist-detectable=false
-*.pbix linguist-detectable=false
+import docx
+from docx.shared import Inches, Pt, RGBColor
+from docx.enum.text import WD_ALIGN_PARAGRAPH
+
+def create_document(lang="ar"):
+    doc = docx.Document()
+    
+    # ضبط هوامش الصفحة (1 إنش من كل اتجاه)
+    for section in doc.sections:
+        section.top_margin = Inches(1)
+        section.bottom_margin = Inches(1)
+        section.left_margin = Inches(1)
+        section.right_margin = Inches(1)
+        
+    # تحديد الألوان المتفق عليها
+    PRIMARY_COLOR = RGBColor(0x1F, 0x4E, 0x78)  # الأزرق الداكن الكلاسيكي
+    SECONDARY_COLOR = RGBColor(0x59, 0x59, 0x59)  # الرمادي الداكن
+    
+    if lang == "ar":
+        # --- الملف العربي ---
+        # 1. تصميم الغلاف
+        p_year = doc.add_paragraph()
+        p_year.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        run_year = p_year.add_run("سنة الدراسة: 2026م")
+        run_year.font.size = Pt(11)
+        run_year.font.color.rgb = SECONDARY_COLOR
+        
+        for _ in range(5): doc.add_paragraph() # مساحات فارغة هندسية
+        
+        p_title = doc.add_paragraph()
+        p_title.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        run_title = p_title.add_run("دراسة الجدوى المالية والتشغيلية الشاملة\n")
+        run_title.font.size = Pt(26)
+        run_title.font.bold = True
+        run_title.font.color.rgb = PRIMARY_COLOR
+        
+        run_subtitle = p_title.add_run("مشروع المركز اللوجستي واستيراد السلع الاستهلاكية - ولاية ميشيغان")
+        run_subtitle.font.size = Pt(14)
+        run_subtitle.font.color.rgb = SECONDARY_COLOR
+        
+        for _ in range(8): doc.add_paragraph()
+        
+        p_meta = doc.add_paragraph()
+        p_meta.alignment = WD_ALIGN_PARAGRAPH.RIGHT
+        p_meta.paragraph_format.line_spacing = 1.3
+        
+        meta_text = (
+            "• مُقدّم إلى: جهة الاستثمار المستهدفة\n"
+            "• إعداد وتطوير: حسن عبد الظاهر (أخصائي استشاري في تحليل البيانات وإدارة المشاريع)\n"
+            "• تاريخ الإصدار: مايو 2026م\n"
+            "• النطاق الجغرافي: الولايات المتحدة الأمريكية، ولاية ميشيغان"
+        )
+        run_meta = p_meta.add_run(meta_text)
+        run_meta.font.size = Pt(12)
+        run_meta.font.color.rgb = PRIMARY_COLOR
+        
+        # كسر الصفحة للبدء في المحتوى
+        doc.add_page_break()
+        
+        # 2. الفصل الأول: الملخص التنفيذي
+        h1 = doc.add_paragraph()
+        run_h1 = h1.add_run("الفصل الأول: الملخص التنفيذي للمشروع")
+        run_h1.font.size = Pt(18)
+        run_h1.font.bold = True
+        run_h1.font.color.rgb = PRIMARY_COLOR
+        
+        p_body = doc.add_paragraph()
+        p_body.alignment = WD_ALIGN_PARAGRAPH.RIGHT
+        p_body.paragraph_format.line_spacing = 1.5
+        body_text = (
+            "هدف هذا المشروع إلى تأسيس مركز لوجستي متكامل ومستودع تخزين مبرمج وفق أعلى المعايير الفنية "
+            "(تصنيف الدرجة الأولى) في ولاية ميشيغان الأمريكية. يرتكز النشاط التجاري الأساسي للمنشأة على استيراد "
+            "وتوزيع السلع الاستهلاكية والغذائية سريعة الدوران والمنظفات عالية الجودة من المملكة العربية السعودية "
+            "والجمهورية التركية، لتلبية الطلب المتنامي لقطاع عريض من المستهلكين والجالية العربية والمسلمة الضخمة "
+            "في الولاية والولايات المجاورة لها.\n\n"
+            "يعتمد النموذج التشغيلي للمشروع على استراتيجية قنوات التوزيع المزدوجة؛ حيث يتم تخصيص 50% من حجم البضائع "
+            "الواصلة لتجارة الجملة والتوريد المباشر للشركات والأسواق المحلية، وتخصيص الـ 50% المتبقية لقناة التجارة "
+            "الإلكترونية والبيع المباشر للمستهلك الأخير لتعظيم هوامش الربحية. بناءً على نموذج المحاكاة المالي والديناميكي، "
+            "تم تحديد الحد الأدنى لرأس المال المطلوب للانطلاق الآمن بقيمة 473,000 دولار أمريكي (لتغطية التجهيزات الرأسمالية "
+            "وبضاعة الدورة الأولى مع احتياطي تشغيلي لثلاثة أشهر)، وهو ما يقع في النطاق الآمن لقدرة العميل التمويلية المتاحة "
+            "(والتي تتراوح بين 1 إلى 2 مليون دولار أمريكي). تستهدف الدراسة تحقيق معدل تدوير كفء للبضائع بواقع 10 دورات "
+            "استيراد سنويًا لتحقيق استغلال كامل لطاقة المستودع الاستيعابية، مما يضمن تدفقًا إيراديًا سنويًا يقدر بـ "
+            "1,930,500 دولار أمريكي، وصافي ربح سنوي صافٍ بعد خصم كافة نفقات التشغيل الثابتة ورواتب طاقم العمل يبلغ 158,500 دولار أمريكي."
+        )
+        run_body = p_body.add_run(body_text)
+        run_body.font.size = Pt(13)
+        
+        doc.save("دراسة_الجدوى_المالية_والتشغيلية_مشروع_الاستثمار_ميشيغان_2.docx")
+        
+    else:
+        # --- English Document ---
+        p_year = doc.add_paragraph()
+        p_year.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        run_year = p_year.add_run("Study Year: 2026")
+        run_year.font.size = Pt(11)
+        run_year.font.color.rgb = SECONDARY_COLOR
+        
+        for _ in range(5): doc.add_paragraph()
+        
+        p_title = doc.add_paragraph()
+        p_title.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        run_title = p_title.add_run("Comprehensive Financial & Operational Feasibility Study\n")
+        run_title.font.size = Pt(26)
+        run_title.font.bold = True
+        run_title.font.color.rgb = PRIMARY_COLOR
+        
+        run_subtitle = p_title.add_run("Logistics Center & FMCG Importation Project - Michigan State")
+        run_subtitle.font.size = Pt(14)
+        run_subtitle.font.color.rgb = SECONDARY_COLOR
+        
+        for _ in range(8): doc.add_paragraph()
+        
+        p_meta = doc.add_paragraph()
+        p_meta.alignment = WD_ALIGN_PARAGRAPH.LEFT
+        p_meta.paragraph_format.line_spacing = 1.3
+        
+        meta_text = (
+            "• Prepared For: Target Investment Entity\n"
+            "• Prepared By: Hassan Abdelzaher (Data Analyst & Project Administration Specialist)\n"
+            "• Date of Issue: May 2026\n"
+            "• Geographic Scope: United States of America, Michigan State"
+        )
+        run_meta = p_meta.add_run(meta_text)
+        run_meta.font.size = Pt(12)
+        run_meta.font.color.rgb = PRIMARY_COLOR
+        
+        doc.add_page_break()
+        
+        h1 = doc.add_paragraph()
+        run_h1 = h1.add_run("Chapter 1: Executive Summary")
+        run_h1.font.size = Pt(18)
+        run_h1.font.bold = True
+        run_h1.font.color.rgb = PRIMARY_COLOR
+        
+        p_body = doc.add_paragraph()
+        p_body.alignment = WD_ALIGN_PARAGRAPH.LEFT
+        p_body.paragraph_format.line_spacing = 1.5
+        body_text = (
+            "This project aims to establish an integrated logistics hub and a Tier-1 cold-storage-ready "
+            "warehouse facility within the State of Michigan, USA. The core commercial activity revolves around "
+            "the importation and distribution of high-demand Fast-Moving Consumer Goods (FMCG), premium food "
+            "products, and home care detergents sourced from the Kingdom of Saudi Arabia and the Republic of Turkey. "
+            "The project strategically targets the expansive Arab and Muslim American demographics, alongside the "
+            "broader consumer base in Michigan and neighboring states.\n\n"
+            "The operational model utilizes a dual-channel distribution strategy: allocating 50% of imported inventory "
+            "to Business-to-Business (B2B) wholesale distribution to local supermarkets, and 50% to a Direct-to-Consumer "
+            "(D2C) e-commerce platform to maximize profit margins. Based on our dynamic financial model, the minimum "
+            "initial capital required for a secure launch is established at $473,000 (covering capital expenditures, "
+            "initial inventory cycles, and a 3-month operational cash buffer). This aligns perfectly with the client’s "
+            "available capital framework ($1M to $2M). The strategic objective sets an annual inventory turnover "
+            "efficiency of 10 cycles to optimize warehouse utilization, projecting a total annual revenue of $1,930,500 "
+            "and delivering a net annual profit of $158,500 after accounting for all fixed operational costs (OpEx) "
+            "and staffing salaries."
+        )
+        run_body = p_body.add_run(body_text)
+        run_body.font.size = Pt(12)
+        
+        doc.save("Financial_&_Operational_Feasibility_Study_Investment_Project_Michigan_2.docx")
+
+# توليد الملفين فوراً
+create_document("ar")
+create_document("en")
+print("تم توليد الملفات بنجاح!")
